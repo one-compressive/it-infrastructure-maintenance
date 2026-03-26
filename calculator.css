@@ -1,17 +1,9 @@
 @font-face {
-  font-family: "Gilroy";
-  src:
-    url("../fonts/Gilroy-Regular.woff2") format("woff2"),
-    url("../fonts/Gilroy-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Gilroy";
-  src:
-    url("../fonts/Gilroy-SemiBold.woff2") format("woff2"),
-    url("../fonts/Gilroy-SmiBold.woff") format("woff");
   font-weight: 600;
   font-style: normal;
 }
@@ -75,8 +67,10 @@ header {
 .main-content {
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
 }
 
 .calculator-glass {
@@ -93,6 +87,20 @@ header {
   height: 65px;
   margin-bottom: 20px;
   padding-right: 15px;
+  background: rgba(20, 20, 20, 1);
+  border-radius: 12px;
+  text-align: right;
+  color: #fff;
+  font-size: 2.2rem;
+  line-height: 65px;
+  box-sizing: border-box;
+}
+
+.glass-output {
+  width: 100%;
+  height: 65px;
+  margin-bottom: 20px;
+  padding-right: 15px;
   background: rgba(20, 20, 20, 0.6);
   border-radius: 12px;
   text-align: right;
@@ -102,7 +110,7 @@ header {
   box-sizing: border-box;
 }
 
-.theme-btn {
+.medium-btn {
   align-self: center;
   margin-top: -40px;
   margin-bottom: 40px;
@@ -117,8 +125,13 @@ header {
   transition: 0.3s;
 }
 
-.theme-btn:hover {
+.medium-btn:hover {
   transform: translateY(-3px);
+}
+
+.theme-group {
+  display: flex;
+  justify-content: center;
 }
 
 .light-theme {
@@ -172,18 +185,4 @@ header {
 .my-btn.secondary {
   background: #e0e0e0;
   color: #1d1d1f;
-}
-
-.my-btn.execute {
-  border-radius: 35px;
-  grid-column: span 2; /* "0" растягивается на 2 колонки */
-}
-
-.btn-equal {
-  border-radius: 35px;
-  grid-column: span 2; /* "=" растянута на 2 колонки */
-  background: #3d5afe;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1.6rem;
 }
