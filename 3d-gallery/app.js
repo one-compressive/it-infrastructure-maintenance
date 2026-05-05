@@ -1,13 +1,21 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
+function resolveModelUrl(url) {
+  // encodeURI keeps "/" but encodes spaces and other unsafe chars.
+  // It also works for http(s) URLs and local relative paths.
+  return encodeURI(url);
+}
+
 const PRESETS = [
-  { id: 1, title: "Машина", model: "models/Range Rover.glb" },
-  { id: 3, title: "Дерево", model: "models/Big Tree.glb" },
-  { id: 4, title: "Пальма", model: "models/Palm Tree.glb" },
-  { id: 5, title: "Машина + Дерево", models: [
-      { model: "models/Range Rover.glb" },
-      { model: "models/Big Tree.glb" },
+  // Local .glb files in this repo are currently empty (0 bytes), so presets use
+  // public sample assets to keep the gallery working out of the box.
+  { id: 1, title: "Машина", model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/CesiumMilkTruck/glTF-Binary/CesiumMilkTruck.glb" },
+  { id: 3, title: "Утка", model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/Duck/glTF-Binary/Duck.glb" },
+  { id: 4, title: "Дерево", model: "https://poly.pizza/m/6pwiq7hSrHr" },
+  { id: 5, title: "Машина + Утка", models: [
+      { model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/CesiumMilkTruck/glTF-Binary/CesiumMilkTruck.glb" },
+      { model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/Duck/glTF-Binary/Duck.glb" },
     ]
   }
 ];
@@ -101,7 +109,7 @@ function renderPreviewModelToCanvas(model, isUser, canvas) {
       drawFallback(canvas);
     });
   } else if (model.model) {
-    loader.load(model.model, gltf => {
+    loader.load(resolveModelUrl(model.model), gltf => {
       const obj = gltf.scene;
       normalizeModelToFloor(obj);
       scene.add(obj);
@@ -113,7 +121,7 @@ function renderPreviewModelToCanvas(model, isUser, canvas) {
     const gap = 0.6;
     let loaded = 0;
     model.models.forEach((m, idx) => {
-      loader.load(m.model, gltf => {
+      loader.load(resolveModelUrl(m.model), gltf => {
         const obj = gltf.scene;
         normalizeModelToFloor(obj);
         obj.position.x = idx === 0 ? -gap : gap;

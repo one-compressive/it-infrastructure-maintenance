@@ -3,14 +3,18 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
+function resolveModelUrl(url) {
+  return encodeURI(url);
+}
+
 // ---- ПРЕСЕТЫ ----
 const PRESETS = [
-   { id: 1, title: "Машина", model: "models/Range Rover.glb" },
-  { id: 3, title: "Дерево", model: "models/Big Tree.glb" },
-  { id: 4, title: "Пальма", model: "models/Palm Tree.glb" },
-  { id: 5, title: "Машина + Дерево", models: [
-      { title: "Машина", model: "models/Range Rover.glb" },
-      { title: "Дерево", model: "models/Big Tree.glb" },
+  { id: 1, title: "Машина", model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/CesiumMilkTruck/glTF-Binary/CesiumMilkTruck.glb" },
+  { id: 3, title: "Утка", model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/Duck/glTF-Binary/Duck.glb" },
+  { id: 4, title: "Дерево", model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/Fox/glTF-Binary/Fox.glb" },
+  { id: 5, title: "Машина + Утка", models: [
+      { title: "Машина", model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/CesiumMilkTruck/glTF-Binary/CesiumMilkTruck.glb" },
+      { title: "Утка", model: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/Duck/glTF-Binary/Duck.glb" },
     ]
   }
 ];
@@ -80,7 +84,7 @@ function renderModel() {
 
   if (toRender.length === 2) {
     toRender.forEach((item, i) => {
-      loader.load(item.model, gltf => {
+      loader.load(resolveModelUrl(item.model), gltf => {
         const model = gltf.scene;
         model.position.x = i === 0 ? -gap : gap;
         scene.add(model);
@@ -90,7 +94,7 @@ function renderModel() {
   } else if (toRender.length === 1) {
     const item = toRender[0];
     if (item.model) {
-      loader.load(item.model, gltf => {
+      loader.load(resolveModelUrl(item.model), gltf => {
         const model = gltf.scene;
         scene.add(model);
         loaded.push(model);
