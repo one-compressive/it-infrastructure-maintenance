@@ -3,19 +3,27 @@ export class ProductCardComponent {
         this.parent = parent;
     }
 
-    getHTML(data) {
+    getHTML(data, withDelete = false) {
+        const dateHtml = data.date
+            ? `<p class="article-card__date">${data.date}</p>`
+            : '';
+
+        const deleteHtml = withDelete
+            ? `<button class="article-card__button--danger" type="button" id="delete-card-${data.id}">Удалить</button>`
+            : '';
+
         return (
             `
             <article class="article-card">
                 <img class="article-card__image" src="${data.src}" alt="Превью статьи">
                 <div class="article-card__body">
-                    <p class="article-card__date">${data.date}</p>
+                    ${dateHtml}
                     <h2 class="article-card__title">${data.title}</h2>
                     <p class="article-card__text">${data.text}</p>
                     <div class="article-card__buttons">
-                        <button class="article-card__button--primary" type="button" id="click-card-${data.id}" data-article-id="${data.articleId}">Читать статью</button>
+                        <button class="article-card__button--primary" type="button" id="click-card-${data.id}" data-article-id="${data.id}">Открыть</button>
                         <button class="article-card__button--secondary" type="button" data-bs-toggle="popover" data-bs-title="Кратко о статье" data-bs-content="${data.title}">Подробнее</button>
-                        <button class="article-card__button--danger" type="button" id="delete-card-${data.id}">Удалить</button>
+                        ${deleteHtml}
                     </div>
                 </div>
             </article>
@@ -38,7 +46,7 @@ export class ProductCardComponent {
     }
 
     render(data, openListener, onDelete) {
-        const html = this.getHTML(data)
+        const html = this.getHTML(data, Boolean(onDelete))
         this.parent.insertAdjacentHTML('beforeend', html)
         this.addListeners(data, openListener, onDelete)
     }

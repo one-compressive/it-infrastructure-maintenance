@@ -1,11 +1,14 @@
 import { ProductCardComponent } from "../../components/product-card/index.js";
 import { ProductPage } from "../product/index.js";
+import { ajax } from "../../modules/ajax.js";
+import { stockUrls } from "../../modules/stockUrls.js";
 
 export class MainPage {
     constructor(parent) {
         this.parent = parent
-        this.items = structuredClone(MainPage.getCatalog())
+        this.items = []
         this.filterQuery = ''
+        this.limit = ''
     }
 
     static getCatalog() {
@@ -54,8 +57,10 @@ export class MainPage {
                         </p>
                         <div class="main-toolbar" role="search">
                             <label class="visually-hidden" for="article-filter">Фильтр статей</label>
-                            <input type="search" id="article-filter" class="main-toolbar__search" placeholder="Фильтр по заголовку, автору или дате..." autocomplete="off">
-                            <button type="button" class="main-toolbar__btn" id="copy-random-card">Добавить случайную из трёх</button>
+                            <input type="search" id="article-filter" class="main-toolbar__search" placeholder="Фильтр по заголовку..." autocomplete="off">
+                            <label class="visually-hidden" for="article-limit">Лимит карточек</label>
+                            <input type="number" id="article-limit" class="main-toolbar__limit" min="1" step="1" placeholder="Лимит">
+                            <button type="button" class="main-toolbar__btn" id="create-card">+</button>
                         </div>
                     </header>
                     <div id="main-page" class="articles-grid"></div>
@@ -65,14 +70,17 @@ export class MainPage {
         )
     }
 
-    getFilteredItems() {
-        const q = this.filterQuery
-        if (!q) {
-            return this.items
-        }
-        return this.items.filter((item) => {
-            const hay = `${item.title} ${item.text} ${item.date}`.toLowerCase()
-            return hay.includes(q)
+    getData() {
+        ajax.get(stockUrls.getStocks({ title: this.filterQuery }), (data, status) => {
+            if (status >= 200 && status < 300 && Array.isArray(data)) {
+                this.items = data
+                this.renderData(this.items)
+                return
+            }
+
+            console.error('Ошибка загрузки карточек', status, data)
+            this.items = []
+            this.renderData(this.items)
         })
     }
 
@@ -87,20 +95,29 @@ export class MainPage {
     }
 
     deleteCard(cardId) {
-        this.items = this.items.filter((item) => item.id !== cardId)
-        this.renderCards()
+        ajax.delete(stockUrls.removeStockById(cardId), (_data, status) => {
+            if (status >= 200 && status < 300) {
+                this.getData()
+                return
+            }
+            console.error('Ошибка удаления карточки', status)
+        })
     }
 
-    copyRandomCard() {
-        const templates = MainPage.getCatalog()
-        const pick = templates[Math.floor(Math.random() * templates.length)]
-        const nextId = Math.max(0, ...this.items.map((i) => i.id)) + 1
-        this.items.push({
-            ...pick,
-            id: nextId,
-            articleId: pick.articleId,
+    createCard() {
+        const payload = {
+            src: "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+            title: `Новая карточка ${new Date().toLocaleString()}`,
+            text: "Создано через POST-запрос из клиента",
+        }
+
+        ajax.post(stockUrls.createStock(), payload, (_data, status) => {
+            if (status >= 200 && status < 300) {
+                this.getData()
+                return
+            }
+            console.error('Ошибка создания карточки', status)
         })
-        this.renderCards()
     }
 
     clickCard(e) {
@@ -128,7 +145,7 @@ export class MainPage {
         })
     }
 
-    renderCards() {
+    renderData(items) {
         this.disposeGridPopovers()
         const root = this.pageRoot
         if (!root) {
@@ -137,7 +154,11 @@ export class MainPage {
 
         root.innerHTML = ''
 
-        const list = this.getFilteredItems()
+        const limit = Number(this.limit)
+        const list = Number.isFinite(limit) && limit > 0
+            ? items.slice(0, limit)
+            : items
+
         list.forEach((item) => {
             const productCard = new ProductCardComponent(root)
             productCard.render(
@@ -156,12 +177,22 @@ export class MainPage {
             filterInput.value = this.filterQuery
             filterInput.addEventListener('input', () => {
                 this.filterQuery = filterInput.value.trim().toLowerCase()
-                this.renderCards()
+                this.getData()
             })
         }
 
-        document.getElementById('copy-random-card')
-            ?.addEventListener('click', () => this.copyRandomCard())
+        const limitInput = document.getElementById('article-limit')
+        if (limitInput) {
+            limitInput.value = this.limit
+            limitInput.addEventListener('input', () => {
+                this.limit = limitInput.value.trim()
+                this.renderData(this.items)
+            })
+        }
+
+        document
+            .getElementById('create-card')
+            ?.addEventListener('click', () => this.createCard())
     }
 
     render() {
@@ -169,6 +200,6 @@ export class MainPage {
         this.parent.insertAdjacentHTML('beforeend', this.getHTML())
 
         this.attachToolbarHandlers()
-        this.renderCards()
+        this.getData()
     }
 }
