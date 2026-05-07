@@ -1,38 +1,44 @@
 [
   {
     "id": 1,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+    "src": "/img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
     "title": "Акция 1",
     "text": "Такой акции вы еще не видели 1"
   },
   {
     "id": 2,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+    "src": "/img/Kibershtorm-2026.-Pochemu-IT_strategiyu-pora-menyat-uzhe-seychas.png",
     "title": "Обновленное название",
     "text": "Обновленное описание"
   },
   {
     "id": 3,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+    "src": "/img/Zachem-IT_audit-malomu-i-srednemu-biznesu_-illyuziya-_u-nas-vse-rabotaet_.jpg",
     "title": "Акция 3",
     "text": "Такой акции вы еще не видели 3"
   },
   {
     "id": 5,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+    "src": "/img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
     "title": "Новая акция",
     "text": "Описание новой акции"
   },
   {
     "id": 6,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+    "src": "/img/Kibershtorm-2026.-Pochemu-IT_strategiyu-pora-menyat-uzhe-seychas.png",
     "title": "Новая карточка 07.05.2026, 10:28:57",
     "text": "Создано через POST-запрос из клиента"
   },
   {
     "id": 7,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+    "src": "/img/Zachem-IT_audit-malomu-i-srednemu-biznesu_-illyuziya-_u-nas-vse-rabotaet_.jpg",
     "title": "Новая карточка 07.05.2026, 10:29:17",
+    "text": "Создано через POST-запрос из клиента"
+  },
+  {
+    "id": 8,
+    "src": "/img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
+    "title": "Новая карточка 07.05.2026, 11:41:36",
     "text": "Создано через POST-запрос из клиента"
   }
 ]

@@ -16,7 +16,7 @@ export class MainPage {
             {
                 id: 1,
                 articleId: 1,
-                src: "img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
+                src: "/img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
                 title: `Двойной удар: почему хакеры полюбили заводы и торговые сети`,
                 text: "Автор: Наталья Волчкова, руководитель отдела системного администрирования ALP ITSM",
                 date: "10 марта 2026"
@@ -24,7 +24,7 @@ export class MainPage {
             {
                 id: 2,
                 articleId: 2,
-                src: "img/Kibershtorm-2026.-Pochemu-IT_strategiyu-pora-menyat-uzhe-seychas.png",
+                src: "/img/Kibershtorm-2026.-Pochemu-IT_strategiyu-pora-menyat-uzhe-seychas.png",
                 title: `Кибершторм 2026. Почему ИТ-стратегию пора менять уже сейчас`,
                 text: "Автор: Сергей Шкварь, руководитель проектов ALP ITSM",
                 date: "17 марта 2026"
@@ -32,7 +32,7 @@ export class MainPage {
             {
                 id: 3,
                 articleId: 3,
-                src: "img/Zachem-IT_audit-malomu-i-srednemu-biznesu_-illyuziya-_u-nas-vse-rabotaet_.jpg",
+                src: "/img/Zachem-IT_audit-malomu-i-srednemu-biznesu_-illyuziya-_u-nas-vse-rabotaet_.jpg",
                 title: `Зачем ИТ-аудит малому и среднему бизнесу: иллюзия «у нас все работает»`,
                 text: "Автор: Алексей Горюнов, руководитель проектного офиса ALP ITSM",
                 date: "22 марта 2026"
@@ -106,7 +106,7 @@ export class MainPage {
 
     createCard() {
         const payload = {
-            src: "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+            src: "/img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
             title: `Новая карточка ${new Date().toLocaleString()}`,
             text: "Создано через POST-запрос из клиента",
         }
