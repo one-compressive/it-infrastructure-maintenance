@@ -4,10 +4,10 @@
   "description": "Лабораторные работы по ПСП 4 семестр",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
-  },
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/one-compressive/it-infrastructure-maintenance.git"
@@ -20,5 +20,8 @@
   "homepage": "https://github.com/one-compressive/it-infrastructure-maintenance#readme",
   "dependencies": {
     "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "vite": "^8.0.11"
   }
 }

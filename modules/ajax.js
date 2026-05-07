@@ -4,18 +4,29 @@ class Ajax {
      * @param {string} url - Адрес запроса
      * @param {function} callback - Функция обратного вызова (data, status)
      */
-    get(url, callback) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.send();
+    async get(url, callback) {
+        try {
+            const response = await fetch(url, { method: 'GET' });
+            const status = response.status;
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                this._handleResponse(xhr, callback);
+            let data = null;
+            const text = await response.text();
+            if (text) {
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error('Ошибка парсинга JSON:', e);
+                    data = null;
+                }
             }
-        };
 
-        console.log('[GET]: ' + url + xhr.statusText)
+            callback(data, status);
+        } catch (e) {
+            console.error('Ошибка запроса:', e);
+            callback(null, 0);
+        } finally {
+            console.log('[GET]: ' + url);
+        }
     }
 
     /**
