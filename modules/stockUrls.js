@@ -1,6 +1,38 @@
+const API_PORT = 3000;
+
+function resolveApiBase() {
+    if (typeof window === 'undefined') {
+        return `http://localhost:${API_PORT}`;
+    }
+
+    const fromStorage = localStorage.getItem('apiBase');
+    if (fromStorage) {
+        return fromStorage.replace(/\/$/, '');
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const apiHost = params.get('apiHost');
+    if (apiHost) {
+        return `${window.location.protocol}//${apiHost}:${API_PORT}`;
+    }
+
+    const { protocol, hostname, port } = window.location;
+
+    // Сайт открыт через Express — API на том же origin
+    if (port === String(API_PORT)) {
+        return window.location.origin;
+    }
+
+    return `${protocol}//${hostname}:${API_PORT}`;
+}
+
 class StockUrls {
     constructor() {
-        this.baseUrl = 'http://localhost:3000';
+        this.baseUrl = resolveApiBase();
+    }
+
+    refreshBaseUrl() {
+        this.baseUrl = resolveApiBase();
     }
 
     getStocks(params = {}) {

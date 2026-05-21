@@ -1,5 +1,6 @@
 import { ProductCardComponent } from "../../components/product-card/index.js";
 import { ProductPage } from "../product/index.js";
+import { CreatePage } from "../create/index.js";
 import { ajax } from "../../modules/ajax.js";
 import { stockUrls } from "../../modules/stockUrls.js";
 
@@ -9,35 +10,6 @@ export class MainPage {
         this.items = []
         this.filterQuery = ''
         this.limit = ''
-    }
-
-    static getCatalog() {
-        return [
-            {
-                id: 1,
-                articleId: 1,
-                src: "img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
-                title: `Двойной удар: почему хакеры полюбили заводы и торговые сети`,
-                text: "Автор: Наталья Волчкова, руководитель отдела системного администрирования ALP ITSM",
-                date: "10 марта 2026"
-            },
-            {
-                id: 2,
-                articleId: 2,
-                src: "img/Kibershtorm-2026.-Pochemu-IT_strategiyu-pora-menyat-uzhe-seychas.png",
-                title: `Кибершторм 2026. Почему ИТ-стратегию пора менять уже сейчас`,
-                text: "Автор: Сергей Шкварь, руководитель проектов ALP ITSM",
-                date: "17 марта 2026"
-            },
-            {
-                id: 3,
-                articleId: 3,
-                src: "img/Zachem-IT_audit-malomu-i-srednemu-biznesu_-illyuziya-_u-nas-vse-rabotaet_.jpg",
-                title: `Зачем ИТ-аудит малому и среднему бизнесу: иллюзия «у нас все работает»`,
-                text: "Автор: Алексей Горюнов, руководитель проектного офиса ALP ITSM",
-                date: "22 марта 2026"
-            },
-        ]
     }
 
     get pageRoot() {
@@ -60,7 +32,7 @@ export class MainPage {
                             <input type="search" id="article-filter" class="main-toolbar__search" placeholder="Фильтр по заголовку..." autocomplete="off">
                             <label class="visually-hidden" for="article-limit">Лимит карточек</label>
                             <input type="number" id="article-limit" class="main-toolbar__limit" min="1" step="1" placeholder="Лимит">
-                            <button type="button" class="main-toolbar__btn" id="create-card">+</button>
+                            <button type="button" class="main-toolbar__btn" id="create-card" aria-label="Создать карточку">+</button>
                         </div>
                     </header>
                     <div id="main-page" class="articles-grid"></div>
@@ -71,6 +43,7 @@ export class MainPage {
     }
 
     getData() {
+        stockUrls.refreshBaseUrl()
         ajax.get(stockUrls.getStocks({ title: this.filterQuery }), (data, status) => {
             if (status >= 200 && status < 300 && Array.isArray(data)) {
                 this.items = data
@@ -104,20 +77,9 @@ export class MainPage {
         })
     }
 
-    createCard() {
-        const payload = {
-            src: "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-            title: `Новая карточка ${new Date().toLocaleString()}`,
-            text: "Создано через POST-запрос из клиента",
-        }
-
-        ajax.post(stockUrls.createStock(), payload, (_data, status) => {
-            if (status >= 200 && status < 300) {
-                this.getData()
-                return
-            }
-            console.error('Ошибка создания карточки', status)
-        })
+    openCreatePage() {
+        const createPage = new CreatePage(this.parent)
+        createPage.render()
     }
 
     clickCard(e) {
@@ -192,7 +154,7 @@ export class MainPage {
 
         document
             .getElementById('create-card')
-            ?.addEventListener('click', () => this.createCard())
+            ?.addEventListener('click', () => this.openCreatePage())
     }
 
     render() {
