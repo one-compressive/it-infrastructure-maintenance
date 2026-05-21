@@ -1,50 +1,20 @@
 [
   {
-    "id": 1,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Акция 1",
-    "text": "Такой акции вы еще не видели 1"
-  },
-  {
-    "id": 2,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Обновленное название",
-    "text": "Обновленное описание"
-  },
-  {
-    "id": 3,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Акция 3",
-    "text": "Такой акции вы еще не видели 3"
-  },
-  {
-    "id": 5,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Новая акция",
-    "text": "Описание новой акции"
-  },
-  {
-    "id": 6,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Новая карточка 07.05.2026, 10:28:57",
-    "text": "Создано через POST-запрос из клиента"
-  },
-  {
-    "id": 7,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Новая карточка 07.05.2026, 10:29:17",
-    "text": "Создано через POST-запрос из клиента"
-  },
-  {
     "id": 8,
     "src": "img/Dvoynoy-udar_-pochemu-khakery-polyubili-zavody-i-torgovye-seti.png",
     "title": "Новая карточка 07.05.2026, 11:45:02",
     "text": "Создано через POST-запрос из клиента"
   },
   {
-    "id": 9,
-    "src": "еанп",
-    "title": "апро",
-    "text": "вераопл"
+    "id": 10,
+    "src": "https://i.pinimg.com/474x/2c/66/e1/2c66e1bc783dc2795a1922f62c823200.jpg",
+    "title": "мышь",
+    "text": "ээ"
+  },
+  {
+    "id": 11,
+    "src": "https://i.pinimg.com/474x/2c/66/e1/2c66e1bc783dc2795a1922f62c823200.jpg",
+    "title": "ывапр",
+    "text": "ывапро"
   }
 ]
